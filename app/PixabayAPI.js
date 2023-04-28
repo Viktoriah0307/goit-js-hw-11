@@ -2,7 +2,8 @@ import axios from 'axios';
 
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-// axios.defaults.headers.common['Authorization'] = 'Client-ID 28194821-49041d995ecd04735d9e20d11';
+// axios.defaults.headers.common['Authorization'] = 'Client-ID 35836322-1f79d06720b616a3e436ff48b';
+// https://pixabay.com/users/viktoriah0307-35836322/
 const API_KEY = '35836322-1f79d06720b616a3e436ff48b';
 
 export class PixabayAPI {
