@@ -54,7 +54,6 @@ const loadMorePhotos = async function (entries, observer) {
             "We're sorry, but you've reached the end of search results.",
             notifyInit
           );
-
         modalLightboxGallery.refresh();
         scrollPage();
       } catch (error) {
