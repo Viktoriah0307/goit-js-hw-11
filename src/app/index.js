@@ -7,6 +7,8 @@ import { PixabayAPI } from './PixabayAPI';
 import { refs } from './refs';
 import { notifyInit } from './notifyInit';
 import { spinnerPlay, spinnerStop } from './spinner';
+import axios from 'axios';
+import simpleLightbox from 'simplelightbox';
 
 const modalLightboxGallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
@@ -54,6 +56,7 @@ const loadMorePhotos = async function (entries, observer) {
             "We're sorry, but you've reached the end of search results.",
             notifyInit
           );
+ 
         modalLightboxGallery.refresh();
         scrollPage();
       } catch (error) {
@@ -182,3 +185,6 @@ function scrollFunction() {
 refs.btnUp.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+
+
