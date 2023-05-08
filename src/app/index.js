@@ -43,11 +43,11 @@ const loadMorePhotos = async function (entries, observer) {
       try {
         spinnerPlay();
 
-        const { hits } = await pixaby.getPhotos();
+        const { hits } = await pixabay.getPhotos();
         const markup = createMarkup(hits);
         refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-        // const showMore = pixaby.hasMorePhotos();
+        // const showMore = pixabay.hasMorePhotos();
         if (pixabay.hasMorePhotos) {
           const lastItem = document.querySelector('.gallery a:last-child');
           observer.observe(lastItem);
@@ -130,7 +130,7 @@ const onSubmitClick = async event => {
 };
 
 const onLoadMore = async () => {
-  pixaby.incrementPage();
+  pixabay.incrementPage();
 
   if (!pixabay.hasMorePhotos) {
     refs.btnLoadMore.classList.add('is-hidden');
@@ -138,7 +138,7 @@ const onLoadMore = async () => {
     notifyInit;
   }
   try {
-    const { hits } = await pixaby.getPhotos();
+    const { hits } = await pixabay.getPhotos();
     const markup = createMarkup(hits);
     refs.gallery.insertAdjacentHTML('beforeend', markup);
 
@@ -151,7 +151,7 @@ const onLoadMore = async () => {
 };
 
 function clearPage() {
-  pixaby.resetPage();
+  pixabay.resetPage();
   refs.gallery.innerHTML = '';
   refs.btnLoadMore.classList.add('is-hidden');
 }
