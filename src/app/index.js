@@ -186,16 +186,3 @@ refs.btnUp.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-const CancelToken = axios.CancelToken;
-let cancel;
-
-axios.get('', {
-  cancelToken: new CancelToken(function executor(c) {
-    // Виконавча функція (або executor function) отримує функцію скасування як параметр
-    cancel = c;
-  })
-});
-
-// скасування запиту
-cancel();
-
