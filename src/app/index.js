@@ -24,7 +24,7 @@ window.addEventListener('load', () => {
 
 refs.btnLoadMore.classList.add('is-hidden');
 
-const pixaby = new PixabayAPI();
+const pixabay = new PixabayAPI();
 
 const options = {
   root: null,
@@ -88,13 +88,13 @@ const onSubmitClick = async event => {
     return;
   }
 
-  pixaby.query = search_query;
+  pixabay.query = search_query;
 
   clearPage();
 
   try {
     spinnerPlay();
-    const { hits, total } = await pixaby.getPhotos();
+    const { hits, total } = await pixabay.getPhotos();
 
     if (hits.length === 0) {
       Notify.failure(
@@ -108,10 +108,10 @@ const onSubmitClick = async event => {
     const markup = createMarkup(hits);
     refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-    pixaby.setTotal(total);
+    pixabay.setTotal(total);
     Notify.success(`Hooray! We found ${total} images.`, notifyInit);
 
-    if (pixaby.hasMorePhotos) {
+    if (pixabay.hasMorePhotos) {
       //refs.btnLoadMore.classList.remove('is-hidden');
 
       const lastItem = document.querySelector('.gallery a:last-child');
@@ -132,7 +132,7 @@ const onSubmitClick = async event => {
 const onLoadMore = async () => {
   pixaby.incrementPage();
 
-  if (!pixaby.hasMorePhotos) {
+  if (!pixabay.hasMorePhotos) {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
     notifyInit;
