@@ -36,7 +36,7 @@ const loadMorePhotos = async function (entries, observer) {
   entries.forEach(async entry => {
     if (entry.isIntersecting) {
       observer.unobserve(entry.target);
-      pixaby.incrementPage();
+      pixabay.incrementPage();
 
       spinnerPlay();
 
@@ -48,7 +48,7 @@ const loadMorePhotos = async function (entries, observer) {
         refs.gallery.insertAdjacentHTML('beforeend', markup);
 
         // const showMore = pixaby.hasMorePhotos();
-        if (pixaby.hasMorePhotos) {
+        if (pixabay.hasMorePhotos) {
           const lastItem = document.querySelector('.gallery a:last-child');
           observer.observe(lastItem);
         } else
@@ -186,5 +186,16 @@ refs.btnUp.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+const CancelToken = axios.CancelToken;
+let cancel;
 
+axios.get('', {
+  cancelToken: new CancelToken(function executor(c) {
+    // Виконавча функція (або executor function) отримує функцію скасування як параметр
+    cancel = c;
+  })
+});
+
+// скасування запиту
+cancel();
 
