@@ -2,9 +2,8 @@ import axios from 'axios';
 
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-// axios.defaults.headers.common['Authorization'] = 'Client-ID 35836322-1f79d06720b616a3e436ff48b';
-// https://pixabay.com/users/viktoriah0307-35836322/
-const API_KEY = '35836322-1f79d06720b616a3e436ff48b';
+// axios.defaults.headers.common['Authorization'] = 'Client-ID 28194821-49041d995ecd04735d9e20d11';
+const API_KEY = '28194821-49041d995ecd04735d9e20d11';
 
 export class PixabayAPI {
     #page = 1;
@@ -49,10 +48,8 @@ export class PixabayAPI {
     setTotal(total) {
         this.#totalPages = total;
     }
-    hasMorePhotos() {
-        
-        return this.#page < Math.ceil(this.#totalPages / this.#per_page);
-    } 
-}
 
-  
+    hasMorePhotos() {
+        return this.#page < Math.ceil(this.#totalPages / this.#per_page);
+    }
+}

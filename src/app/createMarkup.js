@@ -45,5 +45,3 @@ export function createMarkup(photos) {
     )
     .join('');
 }
-
-

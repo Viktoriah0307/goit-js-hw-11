@@ -7,8 +7,6 @@ import { PixabayAPI } from './PixabayAPI';
 import { refs } from './refs';
 import { notifyInit } from './notifyInit';
 import { spinnerPlay, spinnerStop } from './spinner';
-import axios from 'axios';
-import simpleLightbox from 'simplelightbox';
 
 const modalLightboxGallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
@@ -24,7 +22,7 @@ window.addEventListener('load', () => {
 
 refs.btnLoadMore.classList.add('is-hidden');
 
-const pixabay = new PixabayAPI();
+const pixaby = new PixabayAPI();
 
 const options = {
   root: null,
@@ -36,27 +34,17 @@ const loadMorePhotos = async function (entries, observer) {
   entries.forEach(async entry => {
     if (entry.isIntersecting) {
       observer.unobserve(entry.target);
-      pixabay.incrementPage();
+      pixaby.incrementPage();
 
       spinnerPlay();
 
       try {
         spinnerPlay();
 
-        const { hits } = await pixabay.getPhotos();
+        const { hits } = await pixaby.getPhotos();
         const markup = createMarkup(hits);
         refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-        // const showMore = pixabay.hasMorePhotos();
-        if (pixabay.hasMorePhotos) {
-          const lastItem = document.querySelector('.gallery a:last-child');
-          observer.observe(lastItem);
-        } else
-          Notify.info(
-            "We're sorry, but you've reached the end of search results.",
-            notifyInit
-          );
- 
         modalLightboxGallery.refresh();
         scrollPage();
       } catch (error) {
@@ -88,13 +76,13 @@ const onSubmitClick = async event => {
     return;
   }
 
-  pixabay.query = search_query;
+  pixaby.query = search_query;
 
   clearPage();
 
   try {
     spinnerPlay();
-    const { hits, total } = await pixabay.getPhotos();
+    const { hits, total } = await pixaby.getPhotos();
 
     if (hits.length === 0) {
       Notify.failure(
@@ -108,11 +96,11 @@ const onSubmitClick = async event => {
     const markup = createMarkup(hits);
     refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-    pixabay.setTotal(total);
+    pixaby.setTotal(total);
     Notify.success(`Hooray! We found ${total} images.`, notifyInit);
 
-    if (pixabay.hasMorePhotos) {
-      //refs.btnLoadMore.classList.remove('is-hidden');
+    if (pixaby.hasMorePhotos) {
+      // refs.btnLoadMore.classList.remove('is-hidden');
 
       const lastItem = document.querySelector('.gallery a:last-child');
       observer.observe(lastItem);
@@ -130,15 +118,17 @@ const onSubmitClick = async event => {
 };
 
 const onLoadMore = async () => {
-  pixabay.incrementPage();
+  pixaby.incrementPage();
 
-  if (!pixabay.hasMorePhotos) {
+  if (!pixaby.hasMorePhotos) {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
     notifyInit;
+    
   }
+  
   try {
-    const { hits } = await pixabay.getPhotos();
+    const { hits } = await pixaby.getPhotos();
     const markup = createMarkup(hits);
     refs.gallery.insertAdjacentHTML('beforeend', markup);
 
@@ -150,8 +140,9 @@ const onLoadMore = async () => {
   }
 };
 
+
 function clearPage() {
-  pixabay.resetPage();
+  pixaby.resetPage();
   refs.gallery.innerHTML = '';
   refs.btnLoadMore.classList.add('is-hidden');
 }
@@ -178,11 +169,13 @@ window.addEventListener('scroll', scrollFunction);
 function scrollFunction() {
   if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
     refs.btnUpWrapper.style.display = 'flex';
+
   } else {
     refs.btnUpWrapper.style.display = 'none';
   }
+  return
 }
 refs.btnUp.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 500, behavior: 'smooth' });
+  
 });
-
